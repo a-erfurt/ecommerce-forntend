@@ -1,42 +1,78 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>
-        <strong>{{currentUser.username}}</strong> Profile
-      </h3>
-    </header>
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-    </p>
-    <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="role in currentUser.roles" :key="role">{{role}}</li>
-    </ul>
+    <div class="card">
+      <div class="card-header">
+        <h3>Transactions</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead class="table table-header table-dark">
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="transaction in transactions" :key="transaction.id">
+            <td>{{ formatDate(transaction.dateTime) }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td :class="getClassForTransactionType(transaction.type)">{{ transaction.type === 'DEPOSIT' ? 'DEPOSIT' : 'WITHDRAWAL' }}</td>
+            <td>{{ transaction.status }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import UserService from "../services/user.service";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Profile',
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    }
+  name: "User",
+  data() {
+    return {
+      content: {
+        username: '',
+        email: '',
+        balance: 0
+      },
+      transactions: []
+    };
   },
   mounted() {
-    if (!this.currentUser) {
-      this.$router.push('/login');
+    let userId = JSON.parse(localStorage.getItem('user')).id;
+    UserService.getUserTransactions(userId).then(
+        response => {
+          this.transactions = response.data.content;
+        },
+        error => {
+          console.error('Error fetching user transactions:', error);
+        }
+    );
+  },
+  methods: {
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleString();
+    },
+    getClassForTransactionType(type) {
+      return type === 'DEPOSIT' ? 'success' : 'danger';
     }
   }
 };
 </script>
+
+<style>
+.success {
+  color: green;
+}
+
+.danger {
+  color: red;
+}
+</style>

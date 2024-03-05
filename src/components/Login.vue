@@ -1,12 +1,8 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <img
-          id="profile-img"
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          class="profile-img-card"
-      />
       <Form @submit="handleLogin" :validation-schema="schema">
+        <h3>SignIn</h3>
         <div class="form-group">
           <label for="username">Username</label>
           <Field name="username" type="text" class="form-control" />
