@@ -4,6 +4,7 @@ import Register from "./components/Register.vue";
 const Profile = () => import("./components/Profile.vue");
 const BoardAdmin = () => import("./components/BoardAdmin.vue");
 const BoardUser = () => import("./components/BoardUser.vue");
+const CreateTransaction = () => import("./components/CreateTransaction.vue");
 
 const routes = [
     {
@@ -23,6 +24,11 @@ const routes = [
         path: "/admin",
         name: "admin",
         component: BoardAdmin,
+    },
+    {
+        path: "/createTransaction",
+        name: "createTransaction",
+        component: CreateTransaction,
     },
     {
         path: "/user",

@@ -8,14 +8,6 @@
             <font-awesome-icon icon="user" /> Info
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/profile" class="nav-link">
-            Tranasactions
-          </router-link>
-        </li>
-        <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin Board</router-link>
-        </li>
       </div>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
@@ -61,9 +53,7 @@ export default {
     homeRoute() {
       if (this.showAdminBoard) {
         return '/admin';
-      } else if (this.showModeratorBoard) {
-        return '/mod';
-      } else if (this.currentUser) {
+      }  else if (this.currentUser) {
         return '/user';
       } else {
         return '/';

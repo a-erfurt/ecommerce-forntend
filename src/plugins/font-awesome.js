@@ -5,9 +5,11 @@ import {
     faUser,
     faUserPlus,
     faSignInAlt,
-    faSignOutAlt,
+    faSignOutAlt, faMoneyBillTransfer, faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
+library.add(faMoneyBillTransfer);
+library.add(faCheck);
 
 export { FontAwesomeIcon };

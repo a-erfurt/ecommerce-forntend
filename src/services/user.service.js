@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/user/';
+const API_URL = 'http://localhost:8080/api/';
 
 class UserService {
     userId = JSON.parse(localStorage.getItem('user')).id;
@@ -10,21 +10,24 @@ class UserService {
     }
 
     getUserBoard(userId) {
-        return axios.get(API_URL + `${userId}`, { headers: authHeader() });
+        return axios.get(API_URL + `user/${userId}`, { headers: authHeader() });
     }
 
-    getAdminBoard() {
-        return axios.get(API_URL + 'admin', { headers: authHeader() });
+    getAdminBoard(userId) {
+        return axios.get(API_URL + `admin/${userId}`, { headers: authHeader() });
     }
 
     getUserTransactions(userId) {
-        return axios.get(API_URL + `${userId}/transactions`, { headers: authHeader() });
+        return axios.get(API_URL + `user/${userId}/transactions`, { headers: authHeader() });
     }
 
     createTransaction(userId, transactionData) {
-        return axios.put(API_URL + `${userId}/transactions/create`, transactionData, { headers: authHeader() });
+        return axios.put(API_URL + `user/${userId}/transactions/create`, transactionData, { headers: authHeader() });
     }
 
+    getAllUsers() {
+        return axios.get(API_URL + 'admin/allUsers', { headers: authHeader() });
+    }
 }
 
 export default new UserService();
