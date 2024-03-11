@@ -91,7 +91,6 @@ export default {
       this.$store.dispatch("auth/login", user).then(
           () => {
             this.loading = false;
-            // Redirect based on the computed property homeRoute
             this.$router.push(this.homeRoute);
           },
           (error) => {

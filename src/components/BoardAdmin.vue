@@ -76,10 +76,7 @@ export default {
         }
     );
   },
-  methods: {
-    // ... andere Methoden ...
-
-    goToUserTransactions(userId) {
+  methods: {goToUserTransactions(userId) {
       this.$router.push({ path: `/admin/${userId}/transactions` });
     },
   },
