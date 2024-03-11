@@ -95,6 +95,7 @@ export default {
       }
       const start = new Date(this.startDate);
       const end = new Date(this.endDate);
+      end.setDate(end.getDate() + 1);
       return this.transactions.filter(transaction => {
         const transactionDate = new Date(transaction.dateTime);
         return transactionDate >= start && transactionDate <= end;

@@ -24,7 +24,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="user in usersWithoutFirst" :key="user.id">
+          <tr v-for="user in sortedUsers" :key="user.id">
             <td @click="goToUserTransactions(user.id)">{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.balance }} €</td>
@@ -51,8 +51,10 @@ export default {
     };
   },
   computed: {
-    usersWithoutFirst() {
-      return this.users.slice(1);
+    sortedUsers() {
+      return this.users
+          .filter(user => user.username.toLowerCase() !== 'admin')
+          .sort((a, b) => a.balance - b.balance);
     },
   },
   mounted() {
