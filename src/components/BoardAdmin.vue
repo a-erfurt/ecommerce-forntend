@@ -1,15 +1,5 @@
 <template>
   <div class="container">
-    <div class="card">
-      <div class="card-header">
-        <h3>Admin Information</h3>
-      </div>
-      <div class="card-body d-flex justify-content-between align-items-center">
-        <p><strong>Username:</strong> {{ content.username }}</p>
-        <p><strong>Email:</strong> {{ content.email }}</p>
-      </div>
-    </div>
-
     <div class="card mt-4">
       <div class="card-header">
         <h3>Users</h3>
