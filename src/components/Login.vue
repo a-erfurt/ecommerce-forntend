@@ -68,11 +68,21 @@ export default {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-  },
-  created() {
-    if (this.loggedIn) {
-      this.$router.push("/profile");
-    }
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showAdminBoard() {
+      return this.currentUser && this.currentUser.roles.includes('ROLE_ADMIN');
+    },
+    homeRoute() {
+      if (this.showAdminBoard) {
+        return '/admin';
+      }  else if (this.currentUser) {
+        return '/user';
+      } else {
+        return '/';
+      }
+    },
   },
   methods: {
     handleLogin(user) {
@@ -80,7 +90,9 @@ export default {
 
       this.$store.dispatch("auth/login", user).then(
           () => {
-            this.$router.push("/profile");
+            this.loading = false;
+            // Redirect based on the computed property homeRoute
+            this.$router.push(this.homeRoute);
           },
           (error) => {
             this.loading = false;

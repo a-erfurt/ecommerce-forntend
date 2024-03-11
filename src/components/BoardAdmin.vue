@@ -2,9 +2,9 @@
   <div class="container">
     <div class="card">
       <div class="card-header">
-        <h3>User Information</h3>
+        <h3>Admin Information</h3>
       </div>
-      <div class="card-body">
+      <div class="card-body d-flex justify-content-between align-items-center">
         <p><strong>Username:</strong> {{ content.username }}</p>
         <p><strong>Email:</strong> {{ content.email }}</p>
       </div>
@@ -25,10 +25,10 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="user in users" :key="user.id" @click="getUserById(user.id)">
-            <td>{{ user.username }}</td>
+          <tr v-for="user in usersWithoutFirst" :key="user.id">
+            <td @click="goToUserTransactions(user.id)">{{ user.username }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.balance }}</td>
+            <td>{{ user.balance }} €</td>
             <td class="text-center text-danger"><font-awesome-icon icon="check" /></td>
           </tr>
           </tbody>
@@ -52,6 +52,11 @@ export default {
       users: []
     };
   },
+  computed: {
+    usersWithoutFirst() {
+      return this.users.slice(1);
+    },
+  },
   mounted() {
     let userId = JSON.parse(localStorage.getItem('user')).id;
 
@@ -72,6 +77,13 @@ export default {
           console.error('Error fetching users:', error);
         }
     );
-  }
+  },
+  methods: {
+    // ... andere Methoden ...
+
+    goToUserTransactions(userId) {
+      this.$router.push({ path: `/admin/${userId}/transactions` });
+    },
+  },
 };
 </script>

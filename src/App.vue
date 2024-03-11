@@ -47,9 +47,6 @@ export default {
     showAdminBoard() {
       return this.currentUser && this.currentUser.roles.includes('ROLE_ADMIN');
     },
-    showModeratorBoard() {
-      return this.currentUser && this.currentUser.roles.includes('ROLE_MODERATOR');
-    },
     homeRoute() {
       if (this.showAdminBoard) {
         return '/admin';
