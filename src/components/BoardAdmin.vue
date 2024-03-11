@@ -21,7 +21,6 @@
             <th>Username</th>
             <th>Email</th>
             <th>Balance</th>
-            <th>Authorization</th>
           </tr>
           </thead>
           <tbody>
@@ -29,7 +28,6 @@
             <td @click="goToUserTransactions(user.id)">{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.balance }} €</td>
-            <td class="text-center text-danger"><font-awesome-icon icon="check" /></td>
           </tr>
           </tbody>
         </table>
